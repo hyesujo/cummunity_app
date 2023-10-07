@@ -1,5 +1,6 @@
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/feature/community/component/post_card.dart';
+import 'package:danbi_task/feature/community/detail/page.dart';
 import 'package:danbi_task/feature/community/model/post_model.dart';
 import 'package:danbi_task/feature/community/provider/post_provider.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,20 @@ class _PostList extends StatelessWidget {
     return ListView.separated(
         itemCount: posts.length,
         itemBuilder: (_, index) {
-          return PostCard.fromModel(
-            model: posts[index],
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => PostDetailPage(
+                    post: posts[index],
+                  ),
+                ),
+              );
+            },
+            behavior: HitTestBehavior.opaque,
+            child: PostCard.fromModel(
+              model: posts[index],
+            ),
           );
         },
         separatorBuilder: (_, index) {
