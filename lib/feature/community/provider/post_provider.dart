@@ -46,6 +46,19 @@ class PostProviderNotifier extends StateNotifier<List<PostModel>> {
     }
   }
 
+  void createPost(String title, String body) async {
+    try {
+      Map<String, dynamic> requestBody = {
+        'title': title,
+        'body': body,
+      };
+      final result = await postRepository.createPost(requestBody);
+      state.insert(0, result);
+    } catch (e) {
+      state = [];
+    }
+  }
+
   Future<List<CommentModel>> getComments(final int postId) async {
     final result = await postRepository.getComments(postId: postId);
     return result;

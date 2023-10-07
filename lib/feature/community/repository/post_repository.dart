@@ -23,4 +23,7 @@ abstract class PostRepository {
 
   @retorfit.GET('/{id}/comments')
   Future<List<CommentModel>> getComments({@Path('id') required int postId});
+
+  @retorfit.POST('/')
+  Future<PostModel> createPost(@Body() Map<String, dynamic> body);
 }

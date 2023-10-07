@@ -1,8 +1,10 @@
+import 'package:danbi_task/common/const/const.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/feature/community/component/post_card.dart';
 import 'package:danbi_task/feature/community/detail/page.dart';
 import 'package:danbi_task/feature/community/model/post_model.dart';
 import 'package:danbi_task/feature/community/provider/post_provider.dart';
+import 'package:danbi_task/feature/community/writing/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,10 +25,51 @@ class CummunityPage extends ConsumerWidget {
             ? const Text(
                 '데이터가 없어요',
               )
-            : _PostList(
-                context: context,
-                posts: data,
+            : Stack(children: [
+                _PostList(
+                  context: context,
+                  posts: data,
+                ),
+                _writeButton(context),
+              ]),
+      ),
+    );
+  }
+
+  Positioned _writeButton(BuildContext context) {
+    return Positioned(
+      bottom: 20,
+      right: 0,
+      child: SizedBox(
+        height: 50.0,
+        width: MediaQuery.of(context).size.width * 0.3,
+        child: TextButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const WritingPage(),
               ),
+            );
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            minimumSize: Size.zero,
+            backgroundColor: bodyTextColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ).copyWith(
+            overlayColor: MaterialStateProperty.all(
+              primaryColor.withOpacity(0.5),
+            ),
+          ),
+          child: const Text(
+            '글쓰기',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ part of 'post_model.dart';
 
 PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
       title: json['title'] as String,
-      userId: json['userId'] as int,
+      userId: json['userId'] as int?,
       body: json['body'] as String,
       postId: json['id'] as int?,
       comments: (json['comments'] as List<dynamic>?)

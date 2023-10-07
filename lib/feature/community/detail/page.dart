@@ -2,7 +2,6 @@ import 'package:danbi_task/common/const/const.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/feature/community/model/post_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PostDetailPage extends StatelessWidget {
   final PostModel post;
@@ -51,56 +50,58 @@ class PostDetailPage extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: post.comments!.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 10,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              right: 5,
-                            ),
-                            child: Text(
-                              '작성자 명',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
+        post.comments != null
+            ? ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: post.comments!.length,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 10,
+                          ),
+                          child: Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(
+                                  right: 5,
+                                ),
+                                child: Text(
+                                  '작성자 명',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Expanded(
+                                child: Text(
+                                  post.comments![index].name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: Text(
-                              post.comments![index].name,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                        ),
+                        Text(
+                          post.comments![index].body,
+                          style: const TextStyle(
+                            fontSize: 14,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      post.comments![index].body,
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (_, index) {
-              return const Divider();
-            }),
+                  );
+                },
+                separatorBuilder: (_, index) {
+                  return const Divider();
+                })
+            : Container(),
       ],
     );
   }

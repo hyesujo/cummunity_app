@@ -9,14 +9,14 @@ class PostModel {
   @JsonKey(name: 'id')
   final int? postId;
   @JsonKey(name: 'userId')
-  final int userId;
+  final int? userId;
   @JsonKey(name: 'body')
   final String body;
   final List<CommentModel>? comments;
 
   PostModel({
     required this.title,
-    required this.userId,
+    this.userId,
     required this.body,
     this.postId,
     this.comments,
