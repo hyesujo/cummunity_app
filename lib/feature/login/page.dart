@@ -2,6 +2,7 @@ import 'package:danbi_task/common/component/text_form_field.dart';
 import 'package:danbi_task/common/const/data.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/common/sequre_storage/secure_sotrage.dart';
+import 'package:danbi_task/feature/community/page.dart';
 import 'package:danbi_task/feature/login/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -82,9 +83,7 @@ class LoginPage extends StatelessWidget {
     );
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (_) => const DefaultScaffold(
-          child: Text('로그인 되었습니다.'),
-        ),
+        builder: (_) => const CummunityPage(),
       ),
       (route) => false,
     );

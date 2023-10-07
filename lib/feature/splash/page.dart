@@ -1,6 +1,7 @@
 import 'package:danbi_task/common/const/data.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/common/sequre_storage/secure_sotrage.dart';
+import 'package:danbi_task/feature/community/page.dart';
 import 'package:danbi_task/feature/login/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,9 +31,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (_) => const DefaultScaffold(
-                child: Text('로그인 되었습니다.'),
-              ),
+              builder: (_) => const CummunityPage(),
             ),
             (route) => false);
       }
