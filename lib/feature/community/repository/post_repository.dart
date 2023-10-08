@@ -26,4 +26,7 @@ abstract class PostRepository {
 
   @retorfit.POST('/')
   Future<PostModel> createPost(@Body() Map<String, dynamic> body);
+
+  @retorfit.DELETE('/{id}')
+  Future<void> deletePost({@Path('id') required int postId});
 }

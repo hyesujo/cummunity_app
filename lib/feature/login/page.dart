@@ -2,6 +2,7 @@ import 'package:danbi_task/common/component/text_form_field.dart';
 import 'package:danbi_task/common/const/data.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/common/sequre_storage/secure_sotrage.dart';
+import 'package:danbi_task/feature/community/component/debounce_call.dart';
 import 'package:danbi_task/feature/community/page.dart';
 import 'package:danbi_task/feature/login/provider.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,9 @@ class LoginPage extends StatelessWidget {
                   final textColor = ref.watch(textColorProvider);
                   final buttonColor = ref.watch(buttonColorProvider);
                   return ElevatedButton(
-                    onPressed: () =>
-                        onButtonTab(formKey, ref, userEmail, context),
+                    onPressed: () => DebouncedCall.processSync(
+                        () => onButtonTab(formKey, ref, userEmail, context),
+                        hashCode),
                     style: TextButton.styleFrom(
                       backgroundColor: buttonColor,
                     ),

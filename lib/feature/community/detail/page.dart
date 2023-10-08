@@ -1,7 +1,10 @@
 import 'package:danbi_task/common/const/const.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
+import 'package:danbi_task/feature/community/component/debounce_call.dart';
 import 'package:danbi_task/feature/community/model/post_model.dart';
+import 'package:danbi_task/feature/community/provider/post_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PostDetailPage extends StatelessWidget {
   final PostModel post;
@@ -33,6 +36,20 @@ class PostDetailPage extends StatelessWidget {
                 height: 30,
               ),
               _comments(),
+              if (post.userId == null)
+                Consumer(
+                  builder: (context, ref, child) {
+                    return TextButton(
+                      onPressed: () => DebouncedCall.processSync(
+                          () => ref.read(postStateProvider.notifier).deletePost(
+                                post.postId!,
+                                context,
+                              ),
+                          hashCode),
+                      child: const Text('삭제하기'),
+                    );
+                  },
+                ),
             ],
           ),
         ),

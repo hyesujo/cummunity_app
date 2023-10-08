@@ -46,7 +46,7 @@ class PostProviderNotifier extends StateNotifier<List<PostModel>> {
     }
   }
 
-  void createPost(String title, String body) async {
+  void createPost(String title, String body, BuildContext context) async {
     try {
       Map<String, dynamic> requestBody = {
         'title': title,
@@ -54,8 +54,30 @@ class PostProviderNotifier extends StateNotifier<List<PostModel>> {
       };
       final result = await postRepository.createPost(requestBody);
       state.insert(0, result);
+      if (!mounted) return;
+      Navigator.pop(context);
     } catch (e) {
-      state = [];
+      SnackBar(
+        content: Text(
+          e.toString(),
+        ),
+      );
+    }
+  }
+
+  void deletePost(int id, BuildContext context) async {
+    try {
+      await postRepository.deletePost(postId: id);
+      state = state.where((element) => element.postId != id).toList();
+
+      if (!mounted) return;
+      Navigator.pop(context);
+    } catch (e) {
+      SnackBar(
+        content: Text(
+          e.toString(),
+        ),
+      );
     }
   }
 

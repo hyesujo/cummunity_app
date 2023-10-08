@@ -1,7 +1,6 @@
 import 'package:danbi_task/common/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class PostTextFiled extends StatefulWidget {
   final TextEditingController controller;

@@ -1,4 +1,5 @@
 import 'package:danbi_task/common/layout/default_scaffold.dart';
+import 'package:danbi_task/feature/community/component/debounce_call.dart';
 import 'package:danbi_task/feature/community/provider/post_provider.dart';
 import 'package:danbi_task/feature/community/writing/component/post_text_field.dart';
 import 'package:flutter/material.dart';
@@ -42,13 +43,13 @@ class _WritingPageState extends ConsumerState<WritingPage> {
               maxLength: 15,
             ),
             TextButton(
-              onPressed: () {
-                ref.read(postStateProvider.notifier).createPost(
-                      _titleController.text,
-                      _bodyController.text,
-                    );
-                Navigator.pop(context);
-              },
+              onPressed: () => DebouncedCall.processSync(
+                  () => ref.read(postStateProvider.notifier).createPost(
+                        _titleController.text,
+                        _bodyController.text,
+                        context,
+                      ),
+                  hashCode),
               child: const Text('글쓰기'),
             )
           ],

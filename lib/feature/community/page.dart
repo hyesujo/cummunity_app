@@ -1,5 +1,6 @@
 import 'package:danbi_task/common/const/const.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
+import 'package:danbi_task/feature/community/component/debounce_call.dart';
 import 'package:danbi_task/feature/community/component/post_card.dart';
 import 'package:danbi_task/feature/community/detail/page.dart';
 import 'package:danbi_task/feature/community/model/post_model.dart';
@@ -90,7 +91,7 @@ class _PostList extends StatelessWidget {
         itemCount: posts.length,
         itemBuilder: (_, index) {
           return GestureDetector(
-            onTap: () {
+            onTap: () => DebouncedCall.processSync(() {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => PostDetailPage(
@@ -98,7 +99,7 @@ class _PostList extends StatelessWidget {
                   ),
                 ),
               );
-            },
+            }, hashCode),
             behavior: HitTestBehavior.opaque,
             child: PostCard.fromModel(
               model: posts[index],
