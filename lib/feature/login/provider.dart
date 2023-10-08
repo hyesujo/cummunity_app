@@ -14,7 +14,7 @@ final buttonColorProvider =
 class ColorProvider extends StateNotifier<Color> {
   ColorProvider() : super(Colors.grey[300]!);
 
-  void changeButtonColor(GlobalKey<FormState> formKey, String email) {
+  void changeTextColor(GlobalKey<FormState> formKey, String email) {
     formKey.currentState == null ||
             !formKey.currentState!.validate() ||
             email == ''
@@ -26,7 +26,7 @@ class ColorProvider extends StateNotifier<Color> {
 class ButtonColorProvider extends StateNotifier<Color> {
   ButtonColorProvider() : super(Colors.grey[400]!);
 
-  void changeButtonColor2(GlobalKey<FormState> formKey, String email) {
+  void changeButtonColor(GlobalKey<FormState> formKey, String email) {
     formKey.currentState == null ||
             !formKey.currentState!.validate() ||
             email == ''

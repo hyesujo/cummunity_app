@@ -3,13 +3,13 @@ part 'comment_model.g.dart';
 
 @JsonSerializable()
 class CommentModel {
-  @JsonKey(name: "postId")
+  @JsonKey(name: 'postId')
   final int postId;
-  @JsonKey(name: "id")
+  @JsonKey(name: 'id')
   final int userId;
-  @JsonKey(name: "name")
+  @JsonKey(name: 'name')
   final String name;
-  @JsonKey(name: "body")
+  @JsonKey(name: 'body')
   final String body;
 
   CommentModel({

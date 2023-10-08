@@ -1,5 +1,7 @@
+import 'package:danbi_task/common/component/loading_page.dart';
 import 'package:danbi_task/common/const/const.dart';
 import 'package:danbi_task/common/layout/default_scaffold.dart';
+import 'package:danbi_task/feature/community/component/basic_button.dart';
 import 'package:danbi_task/feature/community/component/debounce_call.dart';
 import 'package:danbi_task/feature/community/component/post_card.dart';
 import 'package:danbi_task/feature/community/detail/page.dart';
@@ -16,61 +18,44 @@ class CummunityPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(postStateProvider);
 
+    if (data.isLoading) {
+      return const LoadingPage();
+    }
+
     return DefaultScaffold(
       title: '커뮤니티',
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16.0,
         ),
-        child: data.isEmpty
-            ? const Text(
-                '데이터가 없어요',
+        child: data.posts.isEmpty
+            ? const Center(
+                child: Text('데이터가 없어요'),
               )
             : Stack(children: [
                 _PostList(
                   context: context,
-                  posts: data,
+                  posts: data.posts,
                 ),
-                _writeButton(context),
+                Positioned(
+                  bottom: 20,
+                  right: 0,
+                  child: BasicButton(
+                    text: '글쓰기',
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    textColor: Colors.white,
+                    backgroundColor: bodyTextColor,
+                    onPressed: () => DebouncedCall.processSync(
+                      () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const WritingPage(),
+                        ),
+                      ),
+                      hashCode,
+                    ),
+                  ),
+                ),
               ]),
-      ),
-    );
-  }
-
-  Positioned _writeButton(BuildContext context) {
-    return Positioned(
-      bottom: 20,
-      right: 0,
-      child: SizedBox(
-        height: 50.0,
-        width: MediaQuery.of(context).size.width * 0.3,
-        child: TextButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const WritingPage(),
-              ),
-            );
-          },
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.zero,
-            minimumSize: Size.zero,
-            backgroundColor: bodyTextColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ).copyWith(
-            overlayColor: MaterialStateProperty.all(
-              primaryColor.withOpacity(0.5),
-            ),
-          ),
-          child: const Text(
-            '글쓰기',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
       ),
     );
   }

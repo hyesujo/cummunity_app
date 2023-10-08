@@ -1,11 +1,10 @@
+import 'package:danbi_task/common/component/loading_page.dart';
 import 'package:danbi_task/common/const/data.dart';
-import 'package:danbi_task/common/layout/default_scaffold.dart';
 import 'package:danbi_task/common/sequre_storage/secure_sotrage.dart';
 import 'package:danbi_task/feature/community/page.dart';
 import 'package:danbi_task/feature/login/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -48,25 +47,6 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultScaffold(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              'assets/images/loading.svg',
-              width: 160,
-              height: 160,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const CircularProgressIndicator(
-              color: Colors.black,
-            ),
-          ],
-        ),
-      ),
-    );
+    return const LoadingPage();
   }
 }

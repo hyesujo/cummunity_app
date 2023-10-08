@@ -68,8 +68,8 @@ class LoginPage extends StatelessWidget {
       WidgetRef ref, String userEmail, GlobalKey<FormState> formKey) {
     return (value) {
       userEmail = value;
-      ref.read(textColorProvider.notifier).changeButtonColor(formKey, value);
-      ref.read(buttonColorProvider.notifier).changeButtonColor2(formKey, value);
+      ref.read(textColorProvider.notifier).changeTextColor(formKey, value);
+      ref.read(buttonColorProvider.notifier).changeButtonColor(formKey, value);
     };
   }
 
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
     );
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (_) => const CummunityPage(),
+        builder: (_) => CummunityPage(),
       ),
       (route) => false,
     );
